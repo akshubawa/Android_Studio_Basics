@@ -39,7 +39,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/login_email"
                 android:background="@drawable/olive_white_border"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
                 android:drawableLeft="@drawable/baseline_person_pin_24"
