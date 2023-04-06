@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg5"
+    tools:context=".DashboardActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DASHBOARD"
+        android:background="@color/olive"
+        android:textAlignment="center"
+        android:textColor="@color/golden"
+        android:textSize="30sp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="14dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginBottom="0dp">
+
+        <Button
+            android:id="@+id/dashboard_booking_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/olive"
+            android:text="BOOK TICKETS"
+            android:textColor="@color/golden"
+            android:textSize="18dp"
+            app:cornerRadius="20dp"/>
+
+        <Button
+            android:id="@+id/dashboard_signup_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/olive"
+            android:text="Sign Up"
+            android:textColor="@color/golden"
+            android:textSize="18sp"
+            app:cornerRadius="20dp" />
+
+        <Button
+            android:id="@+id/dashboard_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/olive"
+            android:text="LOGIN"
+            android:textColor="@color/golden"
+            android:textSize="18dp"
+            app:cornerRadius="20dp" />
+        <Button
+            android:id="@+id/dashboard_map_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/olive"
+            android:text="MAP"
+            android:textColor="@color/golden"
+            android:textSize="18dp"
+            app:cornerRadius="20dp" />
+        <Button
+            android:id="@+id/dashboard_wallet_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/olive"
+            android:text="WALLET"
+            android:textColor="@color/golden"
+            android:textSize="18dp"
+            app:cornerRadius="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

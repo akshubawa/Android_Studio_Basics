@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "953605272140",
+    "project_id": "metromate-6055b",
+    "storage_bucket": "metromate-6055b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953605272140:android:0e1860839d90f8bf74bae9",
+        "android_client_info": {
+          "package_name": "com.example.metromate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953605272140-4uvgl4f2tur112fodrqejc9mo0tdljk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXd-6T0UIwqk607049wk13bd2kXUvVWbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953605272140-4uvgl4f2tur112fodrqejc9mo0tdljk3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
