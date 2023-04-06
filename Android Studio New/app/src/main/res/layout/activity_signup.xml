@@ -116,7 +116,6 @@
                 android:layout_marginTop="10dp"
                 android:padding="8dp"
                 android:text="Already an user? Login"
-                android:onClick="redirectPage"
                 android:textColor="@color/olive"
                 android:textSize="18sp" />
 

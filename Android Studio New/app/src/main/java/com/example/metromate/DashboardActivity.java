@@ -6,18 +6,48 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DashboardActivity extends AppCompatActivity {
+    FirebaseAuth auth;
+    Button dashboard_logout;
+    FirebaseUser user;
     Button dashboard_booking_button;
-    Button dashboard_signup_button;
-    Button dashboard_login_button;
     Button dashboard_map_button;
     Button dashboard_wallet_button;
+    TextView dashboard_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        dashboard_logout = findViewById(R.id.dashboard_logout_button);
+
+        if (user==null) {
+            Intent intent = new Intent(getApplicationContext(), FirstPageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            dashboard_name.setText(user.getEmail());
+        }
+
+        dashboard_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), FirstPageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         dashboard_booking_button = findViewById(R.id.dashboard_booking_button);
         dashboard_booking_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,23 +57,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        dashboard_signup_button = findViewById(R.id.dashboard_signup_button);
-        dashboard_signup_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        dashboard_login_button = findViewById(R.id.dashboard_login_button);
-        dashboard_login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
         dashboard_map_button = findViewById(R.id.dashboard_map_button);
         dashboard_map_button.setOnClickListener(new View.OnClickListener() {

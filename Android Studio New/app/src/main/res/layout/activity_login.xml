@@ -35,9 +35,9 @@
                 android:textColor="@color/olive"/>
 
             <EditText
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/login_email"
                 android:background="@drawable/olive_white_border"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
@@ -47,9 +47,9 @@
                 android:textColor="@color/black"/>
 
             <EditText
+                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/login_password"
                 android:background="@drawable/olive_white_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
@@ -60,24 +60,23 @@
                 android:textColor="@color/black"/>
 
             <Button
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Login"
                 android:textColor="@color/golden"
-                android:id="@+id/login_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/olive"
                 app:cornerRadius = "20dp"/>
 
             <TextView
+                android:id="@+id/signupRedirectText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/signupRedirectText"
                 android:text="Not yet registered? Sign Up"
                 android:layout_gravity="center"
                 android:padding="8dp"
-                android:onClick="redirectPage"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/olive"
                 android:textSize="18sp"/>

@@ -25,7 +25,6 @@
             android:padding="24dp"
             android:background="@drawable/olive_border">
 
-
             <Button
                 android:id="@+id/firstPage_login_button"
                 android:layout_width="match_parent"
@@ -47,18 +46,6 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/olive"
                 app:cornerRadius = "20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/skipRedirectText"
-                android:text="Skip for Now"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:onClick="redirectPage"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/olive"
-                android:textSize="18sp"/>
 
         </LinearLayout>
 
