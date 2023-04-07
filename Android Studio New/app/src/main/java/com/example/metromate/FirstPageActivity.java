@@ -11,6 +11,7 @@ public class FirstPageActivity extends AppCompatActivity {
 
     private Button firstPage_signup_button;
     private Button firstPage_login_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,5 +34,6 @@ public class FirstPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }

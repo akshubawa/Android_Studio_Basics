@@ -3,6 +3,7 @@ package com.example.metromate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,15 +27,22 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     Button login_button;
 
+    public class App extends Application {
+        @Override
+        public void onCreate() {
+            super.onCreate();
+
+            FirebaseApp.initializeApp(this);
+        }
+    }
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseApp.initializeApp(this);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-            startActivity(intent);
+            Intent intent2 = new Intent(getApplicationContext(), DashboardActivity.class);
+            startActivity(intent2);
             finish();
         }
     }
@@ -81,8 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
-                                    startActivity(intent);
+                                    Intent intent3 = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    startActivity(intent3);
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();

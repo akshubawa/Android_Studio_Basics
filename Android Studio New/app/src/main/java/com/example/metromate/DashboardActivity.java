@@ -25,9 +25,10 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
         dashboard_logout = findViewById(R.id.dashboard_logout_button);
+        dashboard_name=findViewById(R.id.dashboard_name);
 
         if (user==null) {
             Intent intent = new Intent(getApplicationContext(), FirstPageActivity.class);
@@ -35,7 +36,7 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         }
         else {
-            dashboard_name.setText(user.getEmail());
+            dashboard_name.setText(user.getDisplayName());
         }
 
         dashboard_logout.setOnClickListener(new View.OnClickListener() {

@@ -25,6 +25,13 @@
             android:padding="24dp"
             android:background="@drawable/olive_border">
 
+            <ImageView
+                android:id="@+id/firstPage_logo"
+                android:src="@drawable/icon2"
+                android:layout_gravity="center"
+                android:layout_width="280dp"
+                android:layout_height="300dp"/>
+
             <Button
                 android:id="@+id/firstPage_login_button"
                 android:layout_width="match_parent"
@@ -46,6 +53,7 @@
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/olive"
                 app:cornerRadius = "20dp"/>
+
 
         </LinearLayout>
 

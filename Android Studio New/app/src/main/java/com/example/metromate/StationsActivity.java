@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -26,6 +27,7 @@ public class StationsActivity extends AppCompatActivity {
     private Button stations_back_button;
     private String from_station;
     private String to_station;
+    private TextView stations_lines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,6 @@ public class StationsActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
         stations_back_button = findViewById(R.id.stations_back_button);
         stations_back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,9 +72,10 @@ public class StationsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            int status = response.getJSONObject(0).getInt("status");
-                            TextView stations_textview = findViewById(R.id.stations_textview);
-                            stations_textview.setText("Response Status: " + status);
+
+                            int statusCode = response.getJSONObject(0).getInt("status");
+                            stations_lines = findViewById(R.id.stations_lines);
+                            stations_lines.setText("Response Status: " + statusCode);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

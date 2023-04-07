@@ -3,6 +3,7 @@ package com.example.metromate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,16 +26,24 @@ public class SignupActivity extends AppCompatActivity {
     EditText signup_name, signup_email, signup_phone, signup_password, signup_confirm_password;
     TextView loginRedirectText;
 
+    public class App extends Application {
+        @Override
+        public void onCreate() {
+            super.onCreate();
+
+            FirebaseApp.initializeApp(this);
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseApp.initializeApp(this);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             Toast.makeText(this, "User Already Exists!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
+            Intent new_intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(new_intent);
             finish();
         }
     }

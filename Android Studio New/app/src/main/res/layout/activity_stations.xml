@@ -35,15 +35,69 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/stations_textview"
+                android:id="@+id/stations_lines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Status Code: "
                 android:textAlignment="center"
                 android:textColor="@color/olive"
                 android:paddingTop="20sp"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_mainStations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_lineEnds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_path"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_fare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/stations_back_button"
