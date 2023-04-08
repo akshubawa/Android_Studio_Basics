@@ -31,11 +31,19 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/map_map"
+        <com.jsibbold.zoomage.ZoomageView
+            android:id="@+id/map_image"
+            android:layout_width="wrap_content"
+            android:layout_height="330dp"
             android:src="@drawable/cropped_map"
-            android:layout_width="380dp"
-            android:layout_height="350dp"/>
+            app:zoomage_restrictBounds="false"
+            app:zoomage_animateOnReset="true"
+            app:zoomage_autoResetMode="UNDER"
+            app:zoomage_autoCenter="true"
+            app:zoomage_zoomable="true"
+            app:zoomage_translatable="true"
+            app:zoomage_minScale="0.6"
+            app:zoomage_maxScale="8"/>
 
         <Button
             android:id="@+id/map_home_button"

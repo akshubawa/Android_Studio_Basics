@@ -35,7 +35,17 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/stations_lines"
+                android:id="@+id/stations_line1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/olive"
+                android:paddingTop="20sp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/stations_line2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"

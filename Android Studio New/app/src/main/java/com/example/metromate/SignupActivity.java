@@ -19,6 +19,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -110,6 +111,14 @@ public class SignupActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    String uid = user.getUid();
+                                    String name = signup_name.getText().toString().trim();
+                                    String phone = signup_phone.getText().toString().trim();
+
+                                    User newUser = new User(name, email, phone, password);
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(newUser);
+
                                     Toast.makeText(SignupActivity.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                                     startActivity(intent);

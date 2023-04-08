@@ -36,7 +36,7 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         }
         else {
-            dashboard_name.setText(user.getDisplayName());
+            dashboard_name.setText("Welcome "+user.getDisplayName());
         }
 
         dashboard_logout.setOnClickListener(new View.OnClickListener() {
