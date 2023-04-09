@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Model implements Serializable {
-    String responseCode;
+    String status;
     ArrayList<String> line1;
     ArrayList<String> line2;
     ArrayList<String> interchange;
@@ -12,14 +12,14 @@ public class Model implements Serializable {
     ArrayList<String> path;
     private String time;
 
-    public String getResponseCode() {
+    public String getStatus() {
 
-        return responseCode;
+        return status;
     }
 
-    public void setResponseCode(String responseCode) {
+    public void setStatus(String status) {
 
-        this.responseCode = responseCode;
+        this.status = status;
     }
 
     public ArrayList<String> getLine1() {

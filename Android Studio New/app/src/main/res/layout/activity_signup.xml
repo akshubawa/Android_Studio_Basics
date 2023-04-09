@@ -53,6 +53,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/olive_white_border"
                 android:drawableLeft="@drawable/baseline_email_24"
+                android:inputType="textEmailAddress"
                 android:drawablePadding="8dp"
                 android:hint="Email"
                 android:padding="8dp"

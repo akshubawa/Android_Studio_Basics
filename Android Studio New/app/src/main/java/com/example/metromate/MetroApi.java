@@ -18,20 +18,16 @@ public class MetroApi {
                     .build();
         }
 
-        // Create Methods instance with encodedFrom and encodedTo strings
         Methods methods = retrofit.create(Methods.class);
         Call<Model> call = methods.getAllData(encodedFrom, encodedTo);
 
-        // Enqueue the call and handle the response in the callback methods
         call.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-                // Handle response here
             }
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-                // Handle failure here
             }
         });
 

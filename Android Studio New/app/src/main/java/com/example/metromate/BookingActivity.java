@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -25,7 +26,6 @@ public class BookingActivity extends AppCompatActivity {
     EditText booking_from;
     EditText booking_to;
 
-    //TextView stations_line1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,73 +39,83 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String source = booking_from.getText().toString();
+                String destination = booking_to.getText().toString();
+
                 String fromStation = booking_from.getText().toString();
                 String toStation = booking_to.getText().toString();
 
                 fromStation.replace(" ","%20");
                 toStation.replace(" ","%20");
 
-                //Log.e(TAG, "from: ",fromStation);
-                //Log.e(TAG, "to: ",toStation );
-
-
-                /*String encodedFrom = null;
-                try {
-                    encodedFrom = URLEncoder.encode(booking_from.getText().toString(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-                Log.e(TAG, "Encoded From Station: " + encodedFrom);
-
-                String encodedTo = null;
-                try {
-                    encodedTo = URLEncoder.encode(booking_to.getText().toString(), "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-                Log.e(TAG, "Encoded To Station: " + encodedTo);*/
-
-                //intent.putExtra("encodedFrom",encodedFrom);
-                //intent.putExtra("encodedTo",encodedTo);
-
-               /* String encodedFrom = Uri.encode(fromStation, "UTF-8");
-                String encodedTo = Uri.encode(toStation, "UTF-8");
-
-                Log.e(TAG, "Encoded From Station: " + encodedFrom);
-                Log.e(TAG, "Encoded To Station: " + encodedTo);*/
-
                 Methods methods = MetroApi.getRetrofitInstance(fromStation,toStation).create(Methods.class);
                 Call<Model> call = methods.getAllData(fromStation, toStation);
-
-                Intent intent = new Intent(BookingActivity.this, StationsActivity.class);
-
-                intent.putExtra("booking_from",fromStation);
-                intent.putExtra("booking_to",toStation);
 
                 call.enqueue(new Callback<Model>() {
                     @Override
                     public void onResponse(Call<Model> call, Response<Model> response) {
-                        Log.e(TAG,"onResponse: Code: "+response.code() );
-                        Log.e(TAG,"onResponse: path: "+response.body().getPath() );
+                        if (response.isSuccessful()) {
+                            Model model = response.body();
+                            if (model != null) {
+                                int status = Integer.parseInt(model.getStatus());
+                                if (status == 200) {
+                                    Intent intent = new Intent(BookingActivity.this, StationsActivity.class);
+                                    intent.putExtra("source", source);
+                                    intent.putExtra("destination", destination);
 
-                        intent.putExtra("responseCode", response.code());
-                        //assert response.body() != null;
-                        intent.putExtra("Line1", response.body().getLine1());
-                        intent.putExtra("Line2", response.body().getLine2());
-                        intent.putExtra("LineEnds", response.body().getLineEnds());
-                        intent.putExtra("Interchange", response.body().getInterchange());
-                        intent.putExtra("Path", response.body().getPath());
-                        intent.putExtra("Time", response.body().getTime());
+                                    intent.putExtra("Line1", response.body().getLine1());
+                                    intent.putExtra("Line2", response.body().getLine2());
+                                    intent.putExtra("LineEnds", response.body().getLineEnds());
+                                    intent.putExtra("Interchange", response.body().getInterchange());
+                                    intent.putExtra("Path", response.body().getPath());
+                                    intent.putExtra("Time", response.body().getTime());
 
-                        assert response.body() != null;
-                        String responseCode = String.valueOf(response.code());
-                        ArrayList<String> line1 = response.body().getLine1();
-                        ArrayList<String> line2 = response.body().getLine2();
-                        ArrayList<String> interchange = response.body().getInterchange();
-                        ArrayList<String> path = response.body().getPath();
-                        String time = response.body().getTime();
+                                    assert response.body() != null;
+                                    ArrayList<String> line1 = response.body().getLine1();
+                                    ArrayList<String> line2 = response.body().getLine2();
+                                    ArrayList<String> interchange = response.body().getInterchange();
+                                    ArrayList<String> path = response.body().getPath();
+                                    String time = response.body().getTime();
 
-                        startActivity(intent);
+                                    int var_time = (int) Math.ceil(Double.parseDouble(time));
+                                    int fare = 0;
+                                    if (var_time>=55) {
+                                        fare=60;
+                                    }
+                                    else if (var_time>=40) {
+                                        fare=50;
+                                    }
+                                    else if (var_time>=30) {
+                                        fare=40;
+                                    }
+                                    else if (var_time>=20) {
+                                        fare=30;
+                                    }
+                                    else if (var_time>=10) {
+                                        fare=20;
+                                    }
+                                    else if (var_time<=10) {
+                                        fare=10;
+                                    }
+                                    intent.putExtra("fare",fare);
+
+                                    intent.putExtra("source",source);
+                                    intent.putExtra("destination",destination);
+
+                                    startActivity(intent);
+
+                                    startActivity(intent);
+                                } else if (status == 204) {
+                                    Toast.makeText(BookingActivity.this, "Same Source and Destination", Toast.LENGTH_SHORT).show();
+                                } else if (status == 400) {
+                                    Toast.makeText(BookingActivity.this, "Undefined Source or Destination", Toast.LENGTH_SHORT).show();
+                                } else if (status == 4061) {
+                                    Toast.makeText(BookingActivity.this, "Invalid Source", Toast.LENGTH_SHORT).show();
+                                } else if (status == 4062) {
+                                    Toast.makeText(BookingActivity.this, "Invalid Destination", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
                     }
 
                     @Override
