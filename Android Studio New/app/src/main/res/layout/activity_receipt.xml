@@ -44,7 +44,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_height="170dp"/>
             <TextView
-                android:id="@+id/receipt_toAndFrom"
+                android:id="@+id/receipt_ticketNumber"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"

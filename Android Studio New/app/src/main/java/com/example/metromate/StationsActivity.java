@@ -10,12 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class StationsActivity extends AppCompatActivity {
 
     private Button stations_back_button;
-    private String from_station;
-    private String to_station;
     private TextView stations_line1;
     private TextView stations_line2;
     private TextView stations_mainStations;
@@ -24,26 +23,13 @@ public class StationsActivity extends AppCompatActivity {
     private TextView stations_time;
     private Button stations_proceed_button;
 
-    @SuppressLint("SetText")
+    private int randomNum;
+
+    @SuppressLint({"SetText", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stations);
-
-        Intent intent = getIntent();
-        String responseCode = getIntent().getStringExtra("responseCode");
-        ArrayList<String> line1 = getIntent().getStringArrayListExtra("line1");
-        ArrayList<String> line2 = getIntent().getStringArrayListExtra("line2");
-        ArrayList<String> interchange = getIntent().getStringArrayListExtra("interchange");
-        ArrayList<String> path = getIntent().getStringArrayListExtra("path");
-        String time = getIntent().getStringExtra("time");
-
-        Model model = new Model();
-        model.setLine1(line1);
-        model.setLine2(line2);
-        model.setInterchange(interchange);
-        model.setPath(path);
-        model.setTime(time);
 
         stations_line1 = findViewById(R.id.stations_line1);
         stations_line2 = findViewById(R.id.stations_line2);
@@ -52,13 +38,25 @@ public class StationsActivity extends AppCompatActivity {
         stations_path = findViewById(R.id.stations_path);
         stations_time = findViewById(R.id.stations_time);
 
-        if (responseCode == String.valueOf(200)) {
-            stations_line1.setText("Line1: " + model.getLine1().toString());
-            stations_line2.setText("Line2: " + model.getLine2().toString());
-            stations_mainStations.setText("Interchange: " + model.getInterchange().toString());
-            stations_lineEnds.setText("Line ends: " + model.getLineEnds().toString());
-            stations_path.setText("Path: " + model.getPath().toString());
-            stations_time.setText("Time: " + model.getTime());
+        Intent intent = getIntent();
+
+        int responseCode = intent.getIntExtra("responseCode", -1);
+
+        ArrayList<String> line1 = intent.getStringArrayListExtra("Line1");
+        ArrayList<String> line2 = intent.getStringArrayListExtra("Line2");
+        ArrayList<String> interchange = intent.getStringArrayListExtra("Interchange");
+        ArrayList<String> lineEnds = intent.getStringArrayListExtra("LineEnds");
+        ArrayList<String> path = intent.getStringArrayListExtra("Path");
+        String time = intent.getStringExtra("Time");
+        int final_time = (int) Math.ceil(Double.parseDouble(time));
+
+        if (responseCode ==200) {
+            stations_line1.setText("Line1: " + line1);
+            stations_line2.setText("line2: " + line2);
+            stations_mainStations.setText("Interchange: " + interchange);
+            stations_lineEnds.setText("Line Ends: " + lineEnds);
+            stations_path.setText("Path: " + path);
+            stations_time.setText("Time: " + final_time + " minutes");
         }
 
         stations_proceed_button = findViewById(R.id.stations_proceed_button);
@@ -66,6 +64,11 @@ public class StationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StationsActivity.this, ReceiptActivity.class);
+
+                Random rand = new Random();
+                int randomNum = rand.nextInt(90000000)+10000000;
+                intent.putExtra("random_number",randomNum);
+
                 startActivity(intent);
             }
         });

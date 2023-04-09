@@ -2,9 +2,10 @@ package com.example.metromate;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface Methods {
+    @GET("route-get")
+    Call<Model> getAllData(@Query("from") String fromStation, @Query("to") String toStation);
 
-    @GET("route-get?from=Dwarka&to=Palam")
-    Call<Model> getAllData();
 }

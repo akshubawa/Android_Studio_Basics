@@ -2,11 +2,13 @@ package com.example.metromate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -23,7 +25,7 @@ public class BookingActivity extends AppCompatActivity {
     EditText booking_from;
     EditText booking_to;
 
-    //EditText stations_lines;
+    //TextView stations_line1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +39,73 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String fromStation = booking_from.getText().toString();
+                String toStation = booking_to.getText().toString();
+
+                fromStation.replace(" ","%20");
+                toStation.replace(" ","%20");
+
+                //Log.e(TAG, "from: ",fromStation);
+                //Log.e(TAG, "to: ",toStation );
+
+
+                /*String encodedFrom = null;
+                try {
+                    encodedFrom = URLEncoder.encode(booking_from.getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    throw new RuntimeException(e);
+                }
+                Log.e(TAG, "Encoded From Station: " + encodedFrom);
+
+                String encodedTo = null;
+                try {
+                    encodedTo = URLEncoder.encode(booking_to.getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    throw new RuntimeException(e);
+                }
+                Log.e(TAG, "Encoded To Station: " + encodedTo);*/
+
+                //intent.putExtra("encodedFrom",encodedFrom);
+                //intent.putExtra("encodedTo",encodedTo);
+
+               /* String encodedFrom = Uri.encode(fromStation, "UTF-8");
+                String encodedTo = Uri.encode(toStation, "UTF-8");
+
+                Log.e(TAG, "Encoded From Station: " + encodedFrom);
+                Log.e(TAG, "Encoded To Station: " + encodedTo);*/
+
+                Methods methods = MetroApi.getRetrofitInstance(fromStation,toStation).create(Methods.class);
+                Call<Model> call = methods.getAllData(fromStation, toStation);
+
                 Intent intent = new Intent(BookingActivity.this, StationsActivity.class);
 
-                Methods methods = MetroApi.getRetrofitInstance().create(Methods.class);
-                Call<Model> call = methods.getAllData();
+                intent.putExtra("booking_from",fromStation);
+                intent.putExtra("booking_to",toStation);
 
                 call.enqueue(new Callback<Model>() {
                     @Override
                     public void onResponse(Call<Model> call, Response<Model> response) {
-                        //Log.e(TAG,"onResponse: Code: "+response.code() );
+                        Log.e(TAG,"onResponse: Code: "+response.code() );
+                        Log.e(TAG,"onResponse: path: "+response.body().getPath() );
 
-                        Intent intent = new Intent(BookingActivity.this, StationsActivity.class);
-                        intent.putExtra("response_code", response.code());
-                        ArrayList<String> line1 = null;
-                        intent.putExtra("line1", line1);
-                        ArrayList<String> line2 = null;
-                        intent.putExtra("line2", line2);
-                        ArrayList<String> interchange = null;
-                        intent.putExtra("interchange", interchange);
-                        ArrayList<String> path = null;
-                        intent.putExtra("path", path);
-                        String time = null;
-                        intent.putExtra("time", time);
-                        startActivity(intent);
+                        intent.putExtra("responseCode", response.code());
+                        //assert response.body() != null;
+                        intent.putExtra("Line1", response.body().getLine1());
+                        intent.putExtra("Line2", response.body().getLine2());
+                        intent.putExtra("LineEnds", response.body().getLineEnds());
+                        intent.putExtra("Interchange", response.body().getInterchange());
+                        intent.putExtra("Path", response.body().getPath());
+                        intent.putExtra("Time", response.body().getTime());
 
                         assert response.body() != null;
-                        line1 = response.body().getLine1();
-                        line2 = response.body().getLine2();
-                        interchange = response.body().getInterchange();
-                        path = response.body().getPath();
-                        time = response.body().getTime();
+                        String responseCode = String.valueOf(response.code());
+                        ArrayList<String> line1 = response.body().getLine1();
+                        ArrayList<String> line2 = response.body().getLine2();
+                        ArrayList<String> interchange = response.body().getInterchange();
+                        ArrayList<String> path = response.body().getPath();
+                        String time = response.body().getTime();
 
+                        startActivity(intent);
                     }
 
                     @Override
@@ -77,26 +115,6 @@ public class BookingActivity extends AppCompatActivity {
                     }
                 });
 
-                // String fromStation = booking_from.getText().toString();
-                // String toStation = booking_to.getText().toString();
-
-                //intent.putExtra("booking_from",fromStation);
-                //intent.putExtra("booking_to",toStation);
-
-                /*String encodedFromStation = null;
-                try {
-                    encodedFromStation = URLEncoder.encode(fromStation, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-                String encodedToStation = null;
-                try {
-                    encodedToStation = URLEncoder.encode(toStation, "UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }*/
-
-                startActivity(intent);
             }
         });
     }
