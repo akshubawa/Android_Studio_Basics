@@ -87,7 +87,6 @@ public class StationsActivity extends AppCompatActivity {
         int fare = intent.getIntExtra("fare",0);
         int final_time = (int) Math.ceil(Double.parseDouble(time));
         int interchange_length = interchange.size();
-        int pathValue = path.size();
 
         String first_station = path.get(0);
         String first_line = line1.get(0);
@@ -111,12 +110,18 @@ public class StationsActivity extends AppCompatActivity {
 
         CardModel model = new CardModel(first_station,first_line);
 
+        ArrayList<String> new_path = new ArrayList<String>();
+        new_path.add(final_source);
+        new_path.addAll(path);
+
+        int pathValue = new_path.size();
+
         int count = 0;
         for (int i=1; i<pathValue;i++) {
-            if (interchange.contains(path.get(i-1))) {
+            if (interchange.contains(new_path.get(i-1))) {
                 count++;
             }
-            String new_station = path.get(i);
+            String new_station = new_path.get(i);
             String[] words = new_station.split(" ");
 
             StringBuilder capitalizedSentence = new StringBuilder();
