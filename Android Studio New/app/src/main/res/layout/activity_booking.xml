@@ -33,7 +33,7 @@
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/booking_from"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -41,11 +41,12 @@
                 android:background="@drawable/olive_white_border"
                 android:drawableLeft="@drawable/baseline_train_24"
                 android:drawablePadding="8dp"
+                android:completionThreshold="1"
                 android:hint="From"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/booking_to"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -53,6 +54,7 @@
                 android:background="@drawable/olive_white_border"
                 android:drawableLeft="@drawable/baseline_train_24"
                 android:drawablePadding="8dp"
+                android:completionThreshold="1"
                 android:hint="To"
                 android:padding="8dp"
                 android:textColor="@color/black" />
