@@ -55,13 +55,13 @@ public class ReceiptActivity extends AppCompatActivity {
         receipt_journey.setText("Journey: "+source+" to "+destination);
         receipt_fare.setText("Fare: "+fare2+" Rupees");
 
-        receipt_download.setOnClickListener(new View.OnClickListener() {
+        /*receipt_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent10 = new Intent(ReceiptActivity.this, RouteActivity.class);
+                Intent intent10 = new Intent(ReceiptActivity.this, .class);
                 startActivity(intent10);
             }
-        });
+        });*/
 
     }
 }

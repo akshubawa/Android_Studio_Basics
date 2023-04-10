@@ -1,6 +1,8 @@
 package com.example.metromate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,6 +16,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class StationsActivity extends AppCompatActivity {
+
+    ArrayList<CardModel> arrCard = new ArrayList<CardModel>();
+    RecyclerView route_recycler;
 
     private Button stations_back_button;
     private TextView stations_line1;
@@ -33,13 +38,39 @@ public class StationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stations);
 
-        stations_line1 = findViewById(R.id.stations_line1);
+        route_recycler = findViewById(R.id.route_recycler);
+
+       /* stations_line1 = findViewById(R.id.stations_line1);
         stations_line2 = findViewById(R.id.stations_line2);
         stations_mainStations = findViewById(R.id.stations_mainStations);
         stations_lineEnds = findViewById(R.id.stations_lineEnds);
         stations_path = findViewById(R.id.stations_path);
         stations_time = findViewById(R.id.stations_time);
-        stations_fare = findViewById(R.id.stations_fare);
+        stations_fare = findViewById(R.id.stations_fare);*/
+
+        route_recycler.setLayoutManager(new LinearLayoutManager(StationsActivity.this));
+
+        CardModel model = new CardModel("Akshardham","Blue Line");
+        arrCard.add(new CardModel("Tilak Nagar","Blue"));
+        arrCard.add(new CardModel("Moti Nagar","Blue"));
+        arrCard.add(new CardModel("Ashok Park","Green"));
+        arrCard.add(new CardModel("Inderlok","Green"));
+        arrCard.add(new CardModel("Shashtri Nagar","Red"));
+        arrCard.add(new CardModel("Pratap Nagar","Red"));
+        arrCard.add(new CardModel("Pul Bangash","Red"));
+        arrCard.add(new CardModel("Kashmere Gate","Red"));
+        arrCard.add(new CardModel("Jafrabad","Pink"));
+        arrCard.add(new CardModel("Gokulpuri","Pink"));
+        arrCard.add(new CardModel("Maujpur","Pink"));
+        arrCard.add(new CardModel("Lal Quila","Violet"));
+        arrCard.add(new CardModel("Delhi Gate","Violet"));
+        arrCard.add(new CardModel("ITO","Violet"));
+        arrCard.add(new CardModel("Mandi House","Violet"));
+        arrCard.add(new CardModel("Jama Masjid","Violet"));
+        arrCard.add(new CardModel("Noida Sector 52","Blue"));
+
+        RecyclerCardAdapter adapter = new RecyclerCardAdapter(StationsActivity.this, arrCard);
+        route_recycler.setAdapter(adapter);
 
         Intent intent = getIntent();
 
@@ -73,13 +104,13 @@ public class StationsActivity extends AppCompatActivity {
         int final_time = (int) Math.ceil(Double.parseDouble(time));
 
 
-        stations_line1.setText("Line1: " + line1);
+       /* stations_line1.setText("Line1: " + line1);
         stations_line2.setText("line2: " + line2);
         stations_mainStations.setText("Interchange: " + interchange);
         stations_lineEnds.setText("Line Ends: " + lineEnds);
         stations_path.setText("Path: " + path);
         stations_time.setText("Time: " + final_time + " Minutes");
-        stations_fare.setText("Fare: " + fare + " Rupees");
+        stations_fare.setText("Fare: " + fare + " Rupees");*/
 
 
         stations_proceed_button = findViewById(R.id.stations_proceed_button);

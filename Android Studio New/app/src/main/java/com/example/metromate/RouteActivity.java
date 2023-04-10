@@ -1,3 +1,4 @@
+/*
 package com.example.metromate;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,4 +45,4 @@ public class RouteActivity extends AppCompatActivity {
         route_recycler.setAdapter(adapter);
 
     }
-}
+}*/
