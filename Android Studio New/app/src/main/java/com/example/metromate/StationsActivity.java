@@ -108,7 +108,7 @@ public class StationsActivity extends AppCompatActivity {
         }
 
 
-        CardModel model = new CardModel(first_station,first_line);
+        CardModel model = new CardModel(first_station,first_line,0);
 
         ArrayList<String> new_path = new ArrayList<String>();
         new_path.add(final_source);
@@ -133,7 +133,7 @@ public class StationsActivity extends AppCompatActivity {
 
             String finalSentence = capitalizedSentence.toString().trim();
 
-            arrCard.add(new CardModel(finalSentence,lines.get(count)));
+            arrCard.add(new CardModel(finalSentence,lines.get(count), model.metro_color));
         }
 
         stations_interchange.setText(String.valueOf(interchange_length));

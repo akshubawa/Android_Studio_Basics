@@ -16,6 +16,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/metro_color"
                 android:layout_width="50dp"
                 android:layout_height="75dp"
                 android:background="@color/olive"

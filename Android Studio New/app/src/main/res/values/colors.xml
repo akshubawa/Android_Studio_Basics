@@ -19,4 +19,21 @@
     <color name="olive_light">#616B50</color>
     <color name="golden">#E8E19C</color>
 
+    <color name="metroBlue">#0000FF</color>
+    <color name="metroBlueBranch">#000080</color>
+    <color name="metroMagenta">#FF00FF</color>
+    <color name="metroYellow">#FFFF00</color>
+    <color name="metroRed">#FF0000</color>
+    <color name="metroGreen">#7CFC00</color>
+    <color name="metroGreenBranch">#32CD32</color>
+    <color name="metroViolet">#9B26B6</color>
+    <color name="metroPink">#FFC0CB</color>
+    <color name="metroPinkBranch">#E75480</color>
+    <color name="metroOrange">#FFA500</color>
+    <color name="metroAqua">#00FFFF</color>
+    <color name="metroGrey">#808080</color>
+    <color name="metroRapid">#000000</color>
+
+
+
 </resources>
