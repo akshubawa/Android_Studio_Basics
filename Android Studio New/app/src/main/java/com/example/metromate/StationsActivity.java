@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class StationsActivity extends AppCompatActivity {
 
@@ -21,13 +23,11 @@ public class StationsActivity extends AppCompatActivity {
     RecyclerView route_recycler;
 
     private Button stations_back_button;
-    private TextView stations_line1;
-    private TextView stations_line2;
-    private TextView stations_mainStations;
-    private TextView stations_lineEnds;
-    private TextView stations_path;
+    private TextView stations_interchange;
     private TextView stations_time;
     private TextView stations_fare;
+    private TextView stations_journey;
+    private TextView stations_path_number;
     private Button stations_proceed_button;
 
     private int randomNum;
@@ -40,34 +40,13 @@ public class StationsActivity extends AppCompatActivity {
 
         route_recycler = findViewById(R.id.route_recycler);
 
-       /* stations_line1 = findViewById(R.id.stations_line1);
-        stations_line2 = findViewById(R.id.stations_line2);
-        stations_mainStations = findViewById(R.id.stations_mainStations);
-        stations_lineEnds = findViewById(R.id.stations_lineEnds);
-        stations_path = findViewById(R.id.stations_path);
+        stations_interchange = findViewById(R.id.stations_interchange);
         stations_time = findViewById(R.id.stations_time);
-        stations_fare = findViewById(R.id.stations_fare);*/
+        stations_fare = findViewById(R.id.stations_fare);
+        stations_path_number = findViewById(R.id.stations_path_number);
+        stations_journey = findViewById(R.id.stations_journey);
 
         route_recycler.setLayoutManager(new LinearLayoutManager(StationsActivity.this));
-
-        CardModel model = new CardModel("Akshardham","Blue Line");
-        arrCard.add(new CardModel("Tilak Nagar","Blue"));
-        arrCard.add(new CardModel("Moti Nagar","Blue"));
-        arrCard.add(new CardModel("Ashok Park","Green"));
-        arrCard.add(new CardModel("Inderlok","Green"));
-        arrCard.add(new CardModel("Shashtri Nagar","Red"));
-        arrCard.add(new CardModel("Pratap Nagar","Red"));
-        arrCard.add(new CardModel("Pul Bangash","Red"));
-        arrCard.add(new CardModel("Kashmere Gate","Red"));
-        arrCard.add(new CardModel("Jafrabad","Pink"));
-        arrCard.add(new CardModel("Gokulpuri","Pink"));
-        arrCard.add(new CardModel("Maujpur","Pink"));
-        arrCard.add(new CardModel("Lal Quila","Violet"));
-        arrCard.add(new CardModel("Delhi Gate","Violet"));
-        arrCard.add(new CardModel("ITO","Violet"));
-        arrCard.add(new CardModel("Mandi House","Violet"));
-        arrCard.add(new CardModel("Jama Masjid","Violet"));
-        arrCard.add(new CardModel("Noida Sector 52","Blue"));
 
         RecyclerCardAdapter adapter = new RecyclerCardAdapter(StationsActivity.this, arrCard);
         route_recycler.setAdapter(adapter);
@@ -78,6 +57,7 @@ public class StationsActivity extends AppCompatActivity {
         String source = intent.getStringExtra("source");
         String destination = intent.getStringExtra("destination");
 
+        //CHANGED SOURCE STATIONS TO CAPITALIZE FORMAT
         String[] sources = source.split(" ");
         StringBuilder sb = new StringBuilder();
         for (String word: sources) {
@@ -86,6 +66,7 @@ public class StationsActivity extends AppCompatActivity {
         }
         String final_source = sb.toString().trim();
 
+        //CHANGED DESTINATION STATIONS TO CAPITALIZE FORMAT
         String[] destinations = destination.split(" ");
         StringBuilder sb2 = new StringBuilder();
         for (String word: destinations) {
@@ -94,6 +75,9 @@ public class StationsActivity extends AppCompatActivity {
         }
         String final_destination = sb2.toString().trim();
 
+        stations_journey.setText(final_source+" to "+final_destination);
+
+        //GETTING ALL VALUES OF VALUES FROM API HERE
         ArrayList<String> line1 = intent.getStringArrayListExtra("Line1");
         ArrayList<String> line2 = intent.getStringArrayListExtra("Line2");
         ArrayList<String> interchange = intent.getStringArrayListExtra("Interchange");
@@ -102,16 +86,55 @@ public class StationsActivity extends AppCompatActivity {
         String time = intent.getStringExtra("Time");
         int fare = intent.getIntExtra("fare",0);
         int final_time = (int) Math.ceil(Double.parseDouble(time));
+        int interchange_length = interchange.size();
+        int pathValue = path.size();
+
+        String first_station = path.get(0);
+        String first_line = line1.get(0);
+
+        ArrayList<String> lines = new ArrayList<String>();
+        lines.addAll(line1);
+        lines.addAll(line2);
+
+        //REMOVING DUPLICATES FROM LINE1 & LINE2
+        Set<String> set = new HashSet<>(lines);
+        lines.clear();
+        lines.addAll(set);
+
+        //CAPITALIZING LINES (COLOR)
+        for (int i = 0; i < lines.size(); i++) {
+            String str = lines.get(i);
+            String capitalized = str.substring(0, 1).toUpperCase() + str.substring(1);
+            lines.set(i, capitalized);
+        }
 
 
-       /* stations_line1.setText("Line1: " + line1);
-        stations_line2.setText("line2: " + line2);
-        stations_mainStations.setText("Interchange: " + interchange);
-        stations_lineEnds.setText("Line Ends: " + lineEnds);
-        stations_path.setText("Path: " + path);
-        stations_time.setText("Time: " + final_time + " Minutes");
-        stations_fare.setText("Fare: " + fare + " Rupees");*/
+        CardModel model = new CardModel(first_station,first_line);
 
+        int count = 0;
+        for (int i=1; i<pathValue;i++) {
+            if (interchange.contains(path.get(i-1))) {
+                count++;
+            }
+            String new_station = path.get(i);
+            String[] words = new_station.split(" ");
+
+            StringBuilder capitalizedSentence = new StringBuilder();
+
+            for (String word : words) {
+                String capitalizedWord = word.substring(0, 1).toUpperCase() + word.substring(1);
+                capitalizedSentence.append(capitalizedWord).append(" ");
+            }
+
+            String finalSentence = capitalizedSentence.toString().trim();
+
+            arrCard.add(new CardModel(finalSentence,lines.get(count)));
+        }
+
+        stations_interchange.setText(String.valueOf(interchange_length));
+        stations_time.setText(String.valueOf(final_time));
+        stations_fare.setText("₹"+String.valueOf(fare));
+        stations_path_number.setText(String.valueOf(pathValue));
 
         stations_proceed_button = findViewById(R.id.stations_proceed_button);
         stations_proceed_button.setOnClickListener(new View.OnClickListener() {
