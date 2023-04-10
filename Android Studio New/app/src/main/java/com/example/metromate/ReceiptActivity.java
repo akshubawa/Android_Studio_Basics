@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -16,6 +18,8 @@ public class ReceiptActivity extends AppCompatActivity {
     private TextView receipt_time;
     private TextView receipt_fare;
 
+    private Button receipt_download;
+
 
 
     @Override
@@ -24,6 +28,7 @@ public class ReceiptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receipt);
 
         receipt_ticketNumber = findViewById(R.id.receipt_ticketNumber);
+        receipt_download = findViewById(R.id.receipt_download);
 
         Intent intent = getIntent();
 
@@ -49,6 +54,14 @@ public class ReceiptActivity extends AppCompatActivity {
         receipt_time.setText("Time: "+ timeString);
         receipt_journey.setText("Journey: "+source+" to "+destination);
         receipt_fare.setText("Fare: "+fare2+" Rupees");
+
+        receipt_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent10 = new Intent(ReceiptActivity.this, RouteActivity.class);
+                startActivity(intent10);
+            }
+        });
 
     }
 }

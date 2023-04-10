@@ -47,6 +47,22 @@ public class StationsActivity extends AppCompatActivity {
         String source = intent.getStringExtra("source");
         String destination = intent.getStringExtra("destination");
 
+        String[] sources = source.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String word: sources) {
+            sb.append(Character.toUpperCase(word.charAt(0)) + word.substring(1));
+            sb.append(" ");
+        }
+        String final_source = sb.toString().trim();
+
+        String[] destinations = destination.split(" ");
+        StringBuilder sb2 = new StringBuilder();
+        for (String word: destinations) {
+            sb2.append(Character.toUpperCase(word.charAt(0)) + word.substring(1));
+            sb2.append(" ");
+        }
+        String final_destination = sb2.toString().trim();
+
         ArrayList<String> line1 = intent.getStringArrayListExtra("Line1");
         ArrayList<String> line2 = intent.getStringArrayListExtra("Line2");
         ArrayList<String> interchange = intent.getStringArrayListExtra("Interchange");
@@ -73,8 +89,8 @@ public class StationsActivity extends AppCompatActivity {
                 Intent intent = new Intent(StationsActivity.this, ReceiptActivity.class);
 
                 intent.putExtra("fare2",fare);
-                intent.putExtra("source1",source);
-                intent.putExtra("destination1",destination);
+                intent.putExtra("source1",final_source);
+                intent.putExtra("destination1",final_destination);
 
                 Random rand = new Random();
                 int randomNum = rand.nextInt(90000000)+10000000;

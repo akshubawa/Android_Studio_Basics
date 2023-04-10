@@ -108,12 +108,12 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/signup_button"
+                android:id="@+id/receipt_download"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/olive"
-                android:text="Generate Bill"
+                android:text="Download Receipt"
                 android:textColor="@color/golden"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />

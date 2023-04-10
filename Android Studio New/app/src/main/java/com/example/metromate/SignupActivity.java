@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
 
 public class SignupActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
@@ -106,6 +107,16 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (!password.equals(confirm_password)) {
+                    Toast.makeText(SignupActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (phone.length() != 10) {
+                    Toast.makeText(SignupActivity.this, "Phone number should be 10 digits.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -113,11 +124,11 @@ public class SignupActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     String uid = user.getUid();
-                                    String name = signup_name.getText().toString().trim();
-                                    String phone = signup_phone.getText().toString().trim();
 
                                     User newUser = new User(name, email, phone, password);
-                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(newUser);
+                                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+                                    usersRef.child(uid).setValue(newUser);
 
                                     Toast.makeText(SignupActivity.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -128,6 +139,13 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication Failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
+                                Intent intent2 = new Intent(SignupActivity.this, DashboardActivity.class);
+                                intent2.putExtra("name",name);
+                                startActivity(intent2);
+
+                                Intent intent3 = new Intent(SignupActivity.this, LoginActivity.class);
+                                intent2.putExtra("name",name);
+                                startActivity(intent3);
                             }
                         });
             }

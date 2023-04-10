@@ -25,6 +25,9 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        Intent intent2 = getIntent();
+        String name = intent2.getStringExtra("name");
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
         dashboard_logout = findViewById(R.id.dashboard_logout_button);
@@ -36,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
             finish();
         }
         else {
-            dashboard_name.setText("Welcome "+user.getDisplayName());
+            dashboard_name.setText("Welcome "+name);
         }
 
         dashboard_logout.setOnClickListener(new View.OnClickListener() {
