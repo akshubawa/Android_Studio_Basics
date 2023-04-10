@@ -6,14 +6,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,8 +31,11 @@ public class BookingActivity extends AppCompatActivity {
     private static final String TAG = "BookingActivity";
 
     private Button booking_findRoute_button;
-    EditText booking_from;
-    EditText booking_to;
+//    EditText booking_from;
+//    EditText booking_to;
+
+    private AutoCompleteTextView booking_from;
+    private AutoCompleteTextView booking_to;
 
 
     @Override
@@ -35,6 +46,44 @@ public class BookingActivity extends AppCompatActivity {
         booking_from = findViewById(R.id.booking_from);
         booking_to = findViewById(R.id.booking_to);
         booking_findRoute_button = findViewById(R.id.booking_findRoute_button);
+
+        ArrayList<String> stationsList = new ArrayList<String>();
+        try {
+            InputStream is = getResources().getAssets().open("StationsList.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line = reader.readLine();
+            while (line != null) {
+                stationsList.add(line);
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Error reading StationsList.txt", e);
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, stationsList);
+
+        booking_from.setAdapter(adapter);
+        booking_to.setAdapter(adapter);
+
+        booking_from.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                booking_from.setText(selection);
+            }
+        });
+
+        booking_to.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selection = (String) parent.getItemAtPosition(position);
+                booking_to.setText(selection);
+            }
+        });
+
+
         booking_findRoute_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
